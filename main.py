@@ -24,6 +24,14 @@ posts_db: List[Post] = []
 async def ping():
     return Response("pong")
 
+@app.get("/ping/auth")
+async def ping(user: str, password: str):
+    if user == "admin" and password == "123456":
+        return PlainTextResponse("pong", status_code=status.HTTP_200_OK)
+    else:
+        return HTMLResponse("wrong password or user is not admin", status_code=status.HTTP_403_FORBIDDEN)
+
+
 #GET/home Q2
 @app.get("/home", status_code=status.HTTP_200_OK)
 def home():
