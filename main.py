@@ -20,12 +20,12 @@ posts_db: List[Post] = []
 
 
 #GET/ping Q1
-@app.get("/pong", status_code=status.HTTP_200_OK)
+@app.get("/ping", status_code=status.HTTP_200_OK)
 async def ping():
     return Response("pong")
 
 #GET/home Q2
-@app.get("/ping", status_code=status.HTTP_200_OK)
+@app.get("/home", status_code=status.HTTP_200_OK)
 def home():
     html_content = "<!DOCTYPE html><html><head><title>Home</title></head><body><h1>Welcome home!</h1></body></html>"
     return HTMLResponse(html_content, content_type="text/html")
