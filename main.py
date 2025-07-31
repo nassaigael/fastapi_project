@@ -13,6 +13,8 @@ class Post(BaseModel):
     content: str
     creation_datetime: datetime
 
+
+
 app = FastAPI()
 
 # Variable globale pour stocker les posts en mémoire
@@ -25,9 +27,9 @@ async def ping():
     return Response("pong")
 
 @app.get("/ping/auth")
-async def ping(user: str, password: str):
+async def auth_user_pswd(user: str, password: str):
     if user == "admin" and password == "123456":
-        return PlainTextResponse("pong", status_code=status.HTTP_200_OK)
+        return PlainTextResponse("test", status_code=status.HTTP_200_OK)
     else:
         return HTMLResponse("wrong password or user is not admin", status_code=status.HTTP_403_FORBIDDEN)
 
@@ -36,7 +38,7 @@ async def ping(user: str, password: str):
 @app.get("/home", status_code=status.HTTP_200_OK)
 def home():
     html_content = "<!DOCTYPE html><html><head><title>Home</title></head><body><h1>Welcome home!</h1></body></html>"
-    return HTMLResponse(html_content, content_type="text/html")
+    return HTMLResponse(html_content)
 
 #404 NOT FOUND Q3
 @app.exception_handler(404)
@@ -68,3 +70,5 @@ async def upsert_post(post: Post):
     if not found:
         posts_db.append(post)
     return posts_db
+
+
